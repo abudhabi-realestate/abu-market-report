@@ -49,16 +49,34 @@
   Chart.defaults.color = COLORS.muted;
 
   const charts = [];
+  const t = (k, vars) => (window.SiteI18n ? SiteI18n.t(k, vars) : k);
+  const isEn = () => window.SiteI18n && SiteI18n.getLang() === 'en';
 
   function fmt(n) {
-    return Number(n).toLocaleString('zh-CN');
+    const locale = window.SiteI18n && SiteI18n.getLang() === 'en' ? 'en-US' : 'zh-CN';
+    return Number(n).toLocaleString(locale);
   }
 
   function zhLabels(labels) {
+    if (isEn()) return labels.slice();
     return labels.map((l) => {
       const z = DISTRICT_ZH[l];
       return z && z !== l ? `${z}` : l;
     });
+  }
+
+  function formatMonthLabels(labels) {
+    if (!isEn()) return labels;
+    return labels.map((label) => {
+      const m = /^(\d+)月'(\d+)$/.exec(label);
+      if (!m) return label;
+      return `${m[1]}/${m[2]}`;
+    });
+  }
+
+  function buyerLabels(annual) {
+    if (!isEn()) return annual.buyers.labels;
+    return [t('chart.buyer.resident'), t('chart.buyer.local'), t('chart.buyer.fdi')];
   }
 
   function linearTrend(data) {
@@ -104,11 +122,11 @@
     if (!grid) return;
 
     const items = [
-      { value: `${k.transactionValueAedYi} 亿`, label: '2025 住宅成交额（亿 AED）', sub: `同比 +${k.transactionValueYoY}%`, cls: 'gold' },
-      { value: `${k.offPlanSharePct}%`, label: '全年期房占比', sub: `现金成交 ${k.cashSharePct}%`, cls: '' },
-      { value: `${annual.buyers.sharePct2025[0]}%`, label: '居留外籍买家（按金额）', sub: `海外投资 ${annual.buyers.sharePct2025[2]}%`, cls: '' },
-      { value: `${k.populationEmirateMn} 百万`, label: '酋长国常住人口', sub: `比迪拜多约 ${k.populationVsDubaiPct}%`, cls: '' },
-      { value: `${k.occupiedGrowthPct}%`, label: '入住单元增速', sub: `新增供应仅 ${k.supplyGrowthPct}%`, cls: 'warn' },
+      { value: `${k.transactionValueAedYi} ${t('unit.yi')}`, label: t('kpi.macro.value.label'), sub: t('kpi.macro.value.sub', { pct: k.transactionValueYoY }), cls: 'gold' },
+      { value: `${k.offPlanSharePct}%`, label: t('kpi.macro.offplan.label'), sub: t('kpi.macro.offplan.sub', { pct: k.cashSharePct }), cls: '' },
+      { value: `${annual.buyers.sharePct2025[0]}%`, label: t('kpi.macro.buyer.label'), sub: t('kpi.macro.buyer.sub', { pct: annual.buyers.sharePct2025[2] }), cls: '' },
+      { value: `${k.populationEmirateMn} ${t('unit.million')}`, label: t('kpi.macro.population.label'), sub: t('kpi.macro.population.sub', { pct: k.populationVsDubaiPct }), cls: '' },
+      { value: `${k.occupiedGrowthPct}%`, label: t('kpi.macro.occupied.label'), sub: t('kpi.macro.occupied.sub', { pct: k.supplyGrowthPct }), cls: 'warn' },
     ];
 
     grid.innerHTML = items
@@ -133,12 +151,12 @@
     if (!grid) return;
 
     const items = [
-      { value: fmt(all.totalTransactions), label: '成交总量（已排除三类项目）', sub: `投资区 ${fmt(iz.totalTransactions)} 套（${hy.compare.izShareOfTransactionsPct}%）`, cls: '' },
-      { value: `${all.totalValueAedYi} 亿`, label: '成交额 · 全部（亿 AED）', sub: `投资区 ${iz.totalValueAedYi} 亿 · 7 个月`, cls: 'gold' },
-      { value: `${iz.offPlanSharePct}%`, label: '期房占比 · 投资区', sub: `全部 ${all.offPlanSharePct}%`, cls: '' },
-      { value: `${iz.primarySharePct}%`, label: '一级市场 · 投资区', sub: `二级 ${iz.secondarySharePct}%`, cls: '' },
-      { value: `+${iz.aptPriceChangePct}%`, label: '公寓均价 · 投资区', sub: `${fmt(iz.aptPriceStart)} → ${fmt(iz.aptPriceEnd)}`, cls: '' },
-      { value: `${iz.villaPriceChangePct >= 0 ? '+' : ''}${iz.villaPriceChangePct}%`, label: '别墅均价 · 投资区', sub: `${fmt(iz.villaPriceStart)} → ${fmt(iz.villaPriceEnd)}`, cls: '' },
+      { value: fmt(all.totalTransactions), label: t('kpi.half.total.label'), sub: t('kpi.half.total.sub', { tx: fmt(iz.totalTransactions), pct: hy.compare.izShareOfTransactionsPct }), cls: '' },
+      { value: `${all.totalValueAedYi} ${t('unit.yi')}`, label: t('kpi.half.value.label'), sub: t('kpi.half.value.sub', { value: iz.totalValueAedYi }), cls: 'gold' },
+      { value: `${iz.offPlanSharePct}%`, label: t('kpi.half.offplan.label'), sub: t('kpi.half.offplan.sub', { pct: all.offPlanSharePct }), cls: '' },
+      { value: `${iz.primarySharePct}%`, label: t('kpi.half.primary.label'), sub: t('kpi.half.primary.sub', { pct: iz.secondarySharePct }), cls: '' },
+      { value: `+${iz.aptPriceChangePct}%`, label: t('kpi.half.apt.label'), sub: `${fmt(iz.aptPriceStart)} → ${fmt(iz.aptPriceEnd)}`, cls: '' },
+      { value: `${iz.villaPriceChangePct >= 0 ? '+' : ''}${iz.villaPriceChangePct}%`, label: t('kpi.half.villa.label'), sub: `${fmt(iz.villaPriceStart)} → ${fmt(iz.villaPriceEnd)}`, cls: '' },
     ];
 
     grid.innerHTML = items
@@ -152,16 +170,16 @@
       )
       .join('');
 
-    setText('halfyear-period', hy.meta.periodLabel);
+    setText('halfyear-period', isEn() ? `${hy.meta.periodStart} — ${hy.meta.periodEnd}` : hy.meta.periodLabel);
     setText('halfyear-source', hy.meta.source);
-    setText('excluded-projects', hy.meta.excludedProjects.join('、'));
+    setText('excluded-projects', hy.meta.excludedProjects.join(isEn() ? ', ' : '、'));
 
     const sticky = document.getElementById('sticky-summary');
     if (sticky) {
       sticky.innerHTML = `
-        <span><a href="#part-report" style="color:inherit;text-decoration:none">报告</a> 761亿 · 51%居留</span>
-        <span><a href="#part-data" style="color:inherit;text-decoration:none">数据</a> <strong>${fmt(iz.totalTransactions)}</strong> 套</span>
-        <span><strong>${iz.offPlanSharePct}%</strong> 期房</span>
+        <span><a href="#part-report" style="color:inherit;text-decoration:none">${t('sticky.report')}</a> 761${t('unit.yi')} · 51%</span>
+        <span><a href="#part-data" style="color:inherit;text-decoration:none">${t('sticky.data')}</a> <strong>${fmt(iz.totalTransactions)}</strong> ${t('unit.tx')}</span>
+        <span><strong>${iz.offPlanSharePct}%</strong> ${t('sticky.offplan')}</span>
       `;
     }
   }
@@ -174,12 +192,12 @@
     const izRegions = hy.investmentZone.regions;
     const cr = hy.adrecCrossRef;
     const rows = [
-      { label: '期房占比', annual: `${cr.annualOffPlanPct2025}%（2025全年）`, half: `全部 ${all.offPlanSharePct}% / 投资区 ${iz.offPlanSharePct}%`, note: '投资区新盘推盘更集中' },
-      { label: '现金成交', annual: `${annual.kpi.cashSharePct}%（ADREC 2025）`, half: '—', note: '现金占比仅年报披露' },
-      { label: '住宅成交额', annual: `${cr.annualTransactionValueAedYi} 亿（2025 全年）`, half: `全部 ${all.totalValueAedYi} 亿 / 投资区 ${iz.totalValueAedYi} 亿（7 个月）`, note: '周期不同，宜比结构不宜比绝对值' },
-      { label: '投资区存量', annual: `约占存量 ${cr.stockShareInvestmentZonePct}%`, half: `占近半年成交 ${hy.compare.izShareOfTransactionsPct}%`, note: '小盘子交易更活跃，与存量占比不矛盾' },
-      { label: '买家结构', annual: `居留 ${annual.buyers.sharePct2025[0]}% / 本国 ${annual.buyers.sharePct2025[1]}%`, half: '—', note: '国籍拆分见 ADREC 年报' },
-      { label: '三岛公寓集中度', annual: '约 72%（ADREC 2025）', half: `投资区内 ${izRegions.apartment.topThreeSharePct}%`, note: '里姆 + 亚斯 + 萨迪亚特' },
+      { label: t('cross.row1.label'), annual: t('cross.row1.annual', { pct: cr.annualOffPlanPct2025 }), half: t('cross.row1.half', { all: all.offPlanSharePct, iz: iz.offPlanSharePct }), note: t('cross.row1.note') },
+      { label: t('cross.row2.label'), annual: t('cross.row2.annual', { pct: annual.kpi.cashSharePct }), half: t('common.na'), note: t('cross.row2.note') },
+      { label: t('cross.row3.label'), annual: t('cross.row3.annual', { value: cr.annualTransactionValueAedYi }), half: t('cross.row3.half', { all: all.totalValueAedYi, iz: iz.totalValueAedYi }), note: t('cross.row3.note') },
+      { label: t('cross.row4.label'), annual: t('cross.row4.annual', { pct: cr.stockShareInvestmentZonePct }), half: t('cross.row4.half', { pct: hy.compare.izShareOfTransactionsPct }), note: t('cross.row4.note') },
+      { label: t('cross.row5.label'), annual: t('cross.row5.annual', { resident: annual.buyers.sharePct2025[0], local: annual.buyers.sharePct2025[1] }), half: t('common.na'), note: t('cross.row5.note') },
+      { label: t('cross.row6.label'), annual: t('cross.row6.annual'), half: t('cross.row6.half', { pct: izRegions.apartment.topThreeSharePct }), note: t('cross.row6.note') },
     ];
 
     grid.innerHTML = rows
@@ -194,7 +212,12 @@
       )
       .join('');
 
-    setText('crossref-note', cr.note);
+    setText(
+      'crossref-note',
+      isEn()
+        ? t('cross.dynamic.note', { pct: hy.compare.izShareOfTransactionsPct, stock: cr.stockShareInvestmentZonePct })
+        : cr.note
+    );
   }
 
   function renderInvestmentZoneSection(hy) {
@@ -202,15 +225,16 @@
     const cmp = hy.compare;
     const s = iz.summary;
 
-    setText('iz-period-note', `${hy.meta.periodLabel} · 已排除 ${hy.meta.excludedProjects.join('、')}`);
+    const periodLabel = isEn() ? `${hy.meta.periodStart} — ${hy.meta.periodEnd}` : hy.meta.periodLabel;
+    setText('iz-period-note', `${periodLabel} · ${t('common.excluded')} ${hy.meta.excludedProjects.join(isEn() ? ', ' : '、')}`);
 
     const kpiGrid = document.getElementById('iz-kpis');
     if (kpiGrid) {
       kpiGrid.innerHTML = [
-        { value: fmt(s.totalTransactions), label: '投资区成交', sub: `占全部 ${cmp.izShareOfTransactionsPct}%` },
-        { value: `${s.offPlanSharePct}%`, label: '期房占比', sub: `公寓 ${s.offPlanAptPct}%` },
-        { value: `${s.primarySharePct}%`, label: '一级市场', sub: `峰值月 ${s.peakMonth}` },
-        { value: `+${s.aptPriceChangePct}%`, label: '公寓均价涨幅', sub: '10月→4月' },
+        { value: fmt(s.totalTransactions), label: t('kpi.iz.total.label'), sub: t('kpi.iz.total.sub', { pct: cmp.izShareOfTransactionsPct }) },
+        { value: `${s.offPlanSharePct}%`, label: t('kpi.iz.offplan.label'), sub: t('kpi.iz.offplan.sub', { pct: s.offPlanAptPct }) },
+        { value: `${s.primarySharePct}%`, label: t('kpi.iz.primary.label'), sub: t('kpi.iz.primary.sub', { month: s.peakMonth }) },
+        { value: `+${s.aptPriceChangePct}%`, label: t('kpi.iz.apt.label'), sub: t('kpi.iz.apt.sub') },
       ]
         .map(
           (item) => `
@@ -226,7 +250,7 @@
     const nonIzEl = document.getElementById('non-iz-districts');
     if (nonIzEl && cmp.topNonIzDistricts?.length) {
       nonIzEl.innerHTML = cmp.topNonIzDistricts
-        .map((d) => `<li><strong>${DISTRICT_ZH[d.district] || d.district}</strong>：${fmt(d.count)} 套</li>`)
+        .map((d) => `<li><strong>${zhLabels([d.district])[0]}</strong>: ${fmt(d.count)} ${t('unit.tx')}</li>`)
         .join('');
     }
 
@@ -239,7 +263,10 @@
       new Chart(document.getElementById('pieIzShare'), {
         type: 'doughnut',
         data: {
-          labels: [`投资区 ${cmp.izShareOfTransactionsPct}%`, `非投资区 ${Math.round((100 - cmp.izShareOfTransactionsPct) * 10) / 10}%`],
+          labels: [
+            t('chart.iz.share.in', { pct: cmp.izShareOfTransactionsPct }),
+            t('chart.iz.share.out', { pct: Math.round((100 - cmp.izShareOfTransactionsPct) * 10) / 10 }),
+          ],
           datasets: [{
             data: [s.totalTransactions, cmp.nonIzTransactions],
             backgroundColor: [COLORS.primary, '#cbd5e1'],
@@ -254,12 +281,13 @@
 
   function renderBuyerCharts(annual) {
     const b = annual.buyers;
+    const labels = buyerLabels(annual);
 
     track(
       new Chart(document.getElementById('buyerPie'), {
         type: 'doughnut',
         data: {
-          labels: b.labels.map((l, i) => `${l} ${b.sharePct2025[i]}%`),
+          labels: labels.map((l, i) => `${l} ${b.sharePct2025[i]}%`),
           datasets: [{ data: b.sharePct2025, backgroundColor: [COLORS.resident, COLORS.emirati, COLORS.fdi], borderWidth: 2, borderColor: '#fff' }],
         },
         options: {
@@ -268,7 +296,7 @@
           cutout: '58%',
           plugins: {
             legend: { position: 'bottom', labels: { boxWidth: 12, padding: 10 } },
-            tooltip: { callbacks: { label: (ctx) => ` ${ctx.label}（${b.valueAedYi2025[ctx.dataIndex]} 亿 AED）` } },
+            tooltip: { callbacks: { label: (ctx) => ` ${ctx.label} (${b.valueAedYi2025[ctx.dataIndex]} ${t('unit.yi')} AED)` } },
           },
         },
       })
@@ -280,9 +308,9 @@
         data: {
           labels: ['2019', '2025'],
           datasets: [
-            { label: '居留外籍', data: [b.sharePct2019[0], b.sharePct2025[0]], backgroundColor: COLORS.resident, borderRadius: 4 },
-            { label: '本国买家', data: [b.sharePct2019[1], b.sharePct2025[1]], backgroundColor: COLORS.emirati, borderRadius: 4 },
-            { label: '海外投资', data: [b.sharePct2019[2], b.sharePct2025[2]], backgroundColor: COLORS.fdi, borderRadius: 4 },
+            { label: labels[0], data: [b.sharePct2019[0], b.sharePct2025[0]], backgroundColor: COLORS.resident, borderRadius: 4 },
+            { label: labels[1], data: [b.sharePct2019[1], b.sharePct2025[1]], backgroundColor: COLORS.emirati, borderRadius: 4 },
+            { label: labels[2], data: [b.sharePct2019[2], b.sharePct2025[2]], backgroundColor: COLORS.fdi, borderRadius: 4 },
           ],
         },
         options: {
@@ -304,10 +332,10 @@
       new Chart(document.getElementById(canvasId), {
         type: 'bar',
         data: {
-          labels: m.labels,
+          labels: formatMonthLabels(m.labels),
           datasets: [
-            { label: '公寓', data: m.apartmentVolume, backgroundColor: COLORS.apt, borderRadius: 3 },
-            { label: '别墅/联排', data: m.villaVolume, backgroundColor: COLORS.villa, borderRadius: 3 },
+            { label: t('chart.apartment'), data: m.apartmentVolume, backgroundColor: COLORS.apt, borderRadius: 3 },
+            { label: t('chart.villaTownhouse'), data: m.villaVolume, backgroundColor: COLORS.villa, borderRadius: 3 },
           ],
         },
         options: {
@@ -325,37 +353,51 @@
   }
 
   function renderStructureCharts(micro, suffix = '') {
-    const t = micro.structure;
+    const structure = micro.structure;
+    const typeTotal = structure.typeSplit.data.reduce((a, b) => a + b, 0);
+    const typeLabels = [
+      `${t('chart.apartment')} ${Math.round((structure.typeSplit.data[0] / typeTotal) * 1000) / 10}%`,
+      `${t('chart.villaTownhouse')} ${Math.round((structure.typeSplit.data[1] / typeTotal) * 1000) / 10}%`,
+    ];
     track(
       new Chart(document.getElementById(`pieType${suffix}`), {
         type: 'doughnut',
         data: {
-          labels: t.typeSplit.labels,
-          datasets: [{ data: t.typeSplit.data, backgroundColor: [COLORS.apt, COLORS.villa], borderWidth: 2, borderColor: '#fff' }],
+          labels: typeLabels,
+          datasets: [{ data: structure.typeSplit.data, backgroundColor: [COLORS.apt, COLORS.villa], borderWidth: 2, borderColor: '#fff' }],
         },
         options: { responsive: true, maintainAspectRatio: true, cutout: '60%', plugins: { legend: { position: 'bottom', labels: { boxWidth: 12 } } } },
       })
     );
 
-    const off = t.offPlanAll || t.offPlanApt;
+    const off = structure.offPlanAll || structure.offPlanApt;
+    const offTotal = off.data.reduce((a, b) => a + b, 0);
+    const offLabels = [
+      `${t('chart.offplan')} ${Math.round((off.data[0] / offTotal) * 1000) / 10}%`,
+      `${t('chart.ready')} ${Math.round((off.data[1] / offTotal) * 1000) / 10}%`,
+    ];
     track(
       new Chart(document.getElementById(`pieOffplan${suffix}`), {
         type: 'doughnut',
         data: {
-          labels: off.labels,
+          labels: offLabels,
           datasets: [{ data: off.data, backgroundColor: [COLORS.offplan, COLORS.ready], borderWidth: 2, borderColor: '#fff' }],
         },
         options: { responsive: true, maintainAspectRatio: true, cutout: '60%', plugins: { legend: { position: 'bottom', labels: { boxWidth: 12 } } } },
       })
     );
 
-    if (t.saleSequence) {
+    if (structure.saleSequence) {
+      const total = structure.saleSequence.data.reduce((a, b) => a + b, 0);
       track(
         new Chart(document.getElementById(`piePrimary${suffix}`), {
           type: 'doughnut',
           data: {
-            labels: t.saleSequence.labels.map((l, i) => `${l} ${Math.round((t.saleSequence.data[i] / t.saleSequence.data.reduce((a, b) => a + b, 0)) * 1000) / 10}%`),
-            datasets: [{ data: t.saleSequence.data, backgroundColor: [COLORS.primaryMarket, COLORS.secondaryMarket], borderWidth: 2, borderColor: '#fff' }],
+            labels: [
+              `${t('chart.primary')} ${Math.round((structure.saleSequence.data[0] / total) * 1000) / 10}%`,
+              `${t('chart.secondary')} ${Math.round((structure.saleSequence.data[1] / total) * 1000) / 10}%`,
+            ],
+            datasets: [{ data: structure.saleSequence.data, backgroundColor: [COLORS.primaryMarket, COLORS.secondaryMarket], borderWidth: 2, borderColor: '#fff' }],
           },
           options: { responsive: true, maintainAspectRatio: true, cutout: '60%', plugins: { legend: { position: 'bottom', labels: { boxWidth: 12 } } } },
         })
@@ -369,16 +411,16 @@
 
   const PRICE_NOTES = {
     all: {
-      main: '公寓近半年 +15%；3 月峰值 25.8K 后 4 月回落。别墅区间基本持平。',
-      iz: '投资区公寓近半年 +15%；3 月峰值 25.8K 后 4 月回落。购前须 DARI 核验单元产权类型。',
+      main: 'note.price.main.all',
+      iz: 'note.price.iz.all',
     },
     primary: {
-      main: '一手（一级市场 primary）：开发商直售为主，均价整体高于二手；公寓 3 月峰值 28.4K。',
-      iz: '投资区一手成交占主导；均价走势反映新盘定价与推盘节奏，非单一区域指标。',
+      main: 'note.price.main.primary',
+      iz: 'note.price.iz.primary',
     },
     secondary: {
-      main: '二手（二级市场 secondary）：样本量约为全部的 23%，均价低于一手；公寓近半年呈温和上行。',
-      iz: '投资区二手样本更少，单月波动更大——解读时建议结合成交量与具体 District。',
+      main: 'note.price.main.secondary',
+      iz: 'note.price.iz.secondary',
     },
   };
 
@@ -395,10 +437,10 @@
   function priceChartDatasets(months, mode) {
     const { apt, villa } = getPriceSeries(months, mode);
     return [
-      { label: '公寓', data: apt, borderColor: COLORS.apt, backgroundColor: 'rgba(26,107,82,0.08)', borderWidth: 2, pointRadius: 3, fill: true, tension: 0.4, spanGaps: false },
-      { label: '别墅/联排', data: villa, borderColor: COLORS.villa, backgroundColor: 'rgba(201,162,39,0.1)', borderWidth: 2, pointRadius: 3, fill: true, tension: 0.4, spanGaps: false },
-      { label: '公寓趋势', data: linearTrend(apt), borderColor: '#8fb8a8', borderWidth: 1.5, borderDash: [5, 4], pointRadius: 0, fill: false, tension: 0, spanGaps: false },
-      { label: '别墅趋势', data: linearTrend(villa), borderColor: '#dcc67a', borderWidth: 1.5, borderDash: [5, 4], pointRadius: 0, fill: false, tension: 0, spanGaps: false },
+      { label: t('chart.apartment'), data: apt, borderColor: COLORS.apt, backgroundColor: 'rgba(26,107,82,0.08)', borderWidth: 2, pointRadius: 3, fill: true, tension: 0.4, spanGaps: false },
+      { label: t('chart.villaTownhouse'), data: villa, borderColor: COLORS.villa, backgroundColor: 'rgba(201,162,39,0.1)', borderWidth: 2, pointRadius: 3, fill: true, tension: 0.4, spanGaps: false },
+      { label: t('chart.apartmentTrend'), data: linearTrend(apt), borderColor: '#8fb8a8', borderWidth: 1.5, borderDash: [5, 4], pointRadius: 0, fill: false, tension: 0, spanGaps: false },
+      { label: t('chart.villaTrend'), data: linearTrend(villa), borderColor: '#dcc67a', borderWidth: 1.5, borderDash: [5, 4], pointRadius: 0, fill: false, tension: 0, spanGaps: false },
     ];
   }
 
@@ -407,7 +449,7 @@
     return track(
       new Chart(document.getElementById(canvasId), {
         type: 'line',
-        data: { labels: m.labels, datasets: priceChartDatasets(m, mode) },
+        data: { labels: formatMonthLabels(m.labels), datasets: priceChartDatasets(m, mode) },
         options: {
           responsive: true,
           maintainAspectRatio: false,
@@ -415,11 +457,11 @@
           plugins: {
             legend: { position: 'top' },
             tooltip: {
-              filter: (item) => !item.dataset.label.includes('趋势'),
+              filter: (item) => !item.dataset.label.includes(t('chart.trendKeyword')),
               callbacks: {
                 label: (ctx) => {
                   const v = ctx.parsed.y;
-                  return v == null ? ` ${ctx.dataset.label}: 无成交` : ` ${ctx.dataset.label}: ${v}K AED/m²`;
+                  return v == null ? ` ${ctx.dataset.label}: ${t('common.noTransaction')}` : ` ${ctx.dataset.label}: ${v}K AED/m²`;
                 },
               },
             },
@@ -447,8 +489,8 @@
       });
     }
     const notes = PRICE_NOTES[mode] || PRICE_NOTES.all;
-    setText('price-note', notes.main);
-    setText('price-note-iz', notes.iz);
+    setText('price-note', t(notes.main));
+    setText('price-note-iz', t(notes.iz));
     document.querySelectorAll('.price-filter .price-filter-btn').forEach((btn) => {
       btn.classList.toggle('active', btn.dataset.mode === mode);
     });
@@ -456,6 +498,8 @@
 
   function setupPriceFilter() {
     document.querySelectorAll('.price-filter').forEach((filter) => {
+      if (filter.dataset.bound === '1') return;
+      filter.dataset.bound = '1';
       filter.addEventListener('click', (e) => {
         const btn = e.target.closest('.price-filter-btn');
         if (!btn || btn.dataset.mode === priceMode) return;
@@ -480,7 +524,7 @@
         type: 'bar',
         data: {
           labels: aptLabels,
-          datasets: [{ label: '成交套数', data: apt.data, backgroundColor: regionBarColors(aptLabels, apt.highlight, apt.labels), borderRadius: 4 }],
+          datasets: [{ label: t('chart.transactions'), data: apt.data, backgroundColor: regionBarColors(aptLabels, apt.highlight, apt.labels), borderRadius: 4 }],
         },
         options: {
           indexAxis: 'y',
@@ -500,7 +544,7 @@
         type: 'bar',
         data: {
           labels: zhLabels(villa.labels),
-          datasets: [{ label: '成交套数', data: villa.data, backgroundColor: COLORS.villa, borderRadius: 4 }],
+          datasets: [{ label: t('chart.transactions'), data: villa.data, backgroundColor: COLORS.villa, borderRadius: 4 }],
         },
         options: {
           indexAxis: 'y',
@@ -521,12 +565,12 @@
     if (!grid) return;
     grid.innerHTML = annual.observations
       .map(
-        (o) => `
+        (o, idx) => `
       <article class="obs-card">
-        <div class="obs-head"><span class="obs-icon">${o.icon}</span><h3>${o.title}</h3></div>
-        <p class="obs-data"><strong>数据：</strong>${o.data}</p>
-        <p class="obs-meaning"><strong>解读：</strong>${o.meaning}</p>
-        <p class="obs-caveat"><strong>注意：</strong>${o.caveat}</p>
+        <div class="obs-head"><span class="obs-icon">${o.icon}</span><h3>${t(`obs.${idx}.title`, null) === `obs.${idx}.title` ? o.title : t(`obs.${idx}.title`)}</h3></div>
+        <p class="obs-data"><strong>${t('obs.dataLabel')}</strong>${t(`obs.${idx}.data`, null) === `obs.${idx}.data` ? o.data : t(`obs.${idx}.data`)}</p>
+        <p class="obs-meaning"><strong>${t('obs.meaningLabel')}</strong>${t(`obs.${idx}.meaning`, null) === `obs.${idx}.meaning` ? o.meaning : t(`obs.${idx}.meaning`)}</p>
+        <p class="obs-caveat"><strong>${t('obs.caveatLabel')}</strong>${t(`obs.${idx}.caveat`, null) === `obs.${idx}.caveat` ? o.caveat : t(`obs.${idx}.caveat`)}</p>
       </article>`
       )
       .join('');
@@ -538,8 +582,8 @@
     if (!bars) return;
     const max = Math.max(k.occupiedGrowthPct, k.supplyGrowthPct);
     bars.innerHTML = [
-      { label: '入住单元增速', value: k.occupiedGrowthPct, cls: 'occupied' },
-      { label: '新增供应增速', value: k.supplyGrowthPct, cls: 'supply' },
+      { label: t('supply.bar.occupied'), value: k.occupiedGrowthPct, cls: 'occupied' },
+      { label: t('supply.bar.new'), value: k.supplyGrowthPct, cls: 'supply' },
     ]
       .map(
         (item) => `
@@ -557,12 +601,12 @@
     if (!el) return;
     const s = rolling.summary;
     el.innerHTML = `
-      <p class="card-note" style="margin-top:0">区间 ${rolling.meta.periodStart} — ${rolling.meta.periodEnd}，供与近半年数据对照。</p>
+      <p class="card-note" style="margin-top:0">${t('appendix.period', { start: rolling.meta.periodStart, end: rolling.meta.periodEnd })}</p>
       <div class="kpi-grid" style="margin:12px 0">
-        <div class="stat-card"><div class="stat-value">${fmt(s.totalTransactions)}</div><div class="stat-label">12 个月成交</div></div>
-        <div class="stat-card"><div class="stat-value">${s.offPlanSharePct}%</div><div class="stat-label">期房占比</div></div>
-        <div class="stat-card"><div class="stat-value">+${s.aptPriceChangePct}%</div><div class="stat-label">公寓均价涨幅</div></div>
-        <div class="stat-card"><div class="stat-value">+${s.villaPriceChangePct}%</div><div class="stat-label">别墅均价涨幅</div></div>
+        <div class="stat-card"><div class="stat-value">${fmt(s.totalTransactions)}</div><div class="stat-label">${t('appendix.kpi.tx12m')}</div></div>
+        <div class="stat-card"><div class="stat-value">${s.offPlanSharePct}%</div><div class="stat-label">${t('appendix.kpi.offplan')}</div></div>
+        <div class="stat-card"><div class="stat-value">+${s.aptPriceChangePct}%</div><div class="stat-label">${t('appendix.kpi.apt')}</div></div>
+        <div class="stat-card"><div class="stat-value">+${s.villaPriceChangePct}%</div><div class="stat-label">${t('appendix.kpi.villa')}</div></div>
       </div>
       <div class="chart-wrap" style="height:220px"><canvas id="barChart12"></canvas></div>
     `;
@@ -571,7 +615,8 @@
 
   function setupNav() {
     const nav = document.getElementById('section-nav');
-    if (!nav) return;
+    if (!nav || nav.dataset.bound === '1') return;
+    nav.dataset.bound = '1';
     nav.querySelectorAll('a').forEach((link) => {
       link.addEventListener('click', (e) => {
         e.preventDefault();
@@ -599,6 +644,8 @@
 
   function setupCollapsibles() {
     document.querySelectorAll('[data-collapse]').forEach((btn) => {
+      if (btn.dataset.bound === '1') return;
+      btn.dataset.bound = '1';
       const panel = document.getElementById(btn.getAttribute('aria-controls'));
       if (!panel) return;
       btn.addEventListener('click', () => {
@@ -613,23 +660,23 @@
     const body = document.getElementById('methodology-body');
     if (!body) return;
     body.innerHTML = `
-      <h4>第一层 · ADREC 2025 年报</h4>
+      <h4>${t('method.l1.title')}</h4>
       <ul>
-        <li>来源：${annual.meta.source}</li>
-        <li>住宅成交额 ${annual.kpi.transactionValueAedYi} 亿 AED（2025 全年 · 酋长国全境）</li>
-        <li>买家结构、现金占比、全年期房等宏观指标</li>
+        <li>${t('method.source')}${annual.meta.source}</li>
+        <li>${t('method.l1.v1', { value: annual.kpi.transactionValueAedYi })}</li>
+        <li>${t('method.l1.v2')}</li>
       </ul>
-      <h4>第二层 · 近半年成交（${hy.meta.periodLabel}）</h4>
+      <h4>${t('method.l2.title', { period: hy.meta.periodLabel })}</h4>
       <ul>
-        <li>来源：${hy.meta.source}</li>
-        <li>成交额 ${hy.all.summary.totalValueAedYi} 亿 AED（7 个月 · 全部成交）</li>
-        <li>排除项目：${hy.meta.excludedProjects.join('、')}</li>
-        <li>投资区筛选：${hy.meta.investmentZoneDistricts} 个 District（见 data/investment_zones.json）</li>
-        <li>全部成交 ${hy.all.summary.totalTransactions} 套；投资区 ${hy.investmentZone.summary.totalTransactions} 套（${hy.compare.izShareOfTransactionsPct}%）</li>
-        <li>全页金额统一为<strong>亿 AED</strong>（1 亿 = 1×10⁸ AED）</li>
+        <li>${t('method.source')}${hy.meta.source}</li>
+        <li>${t('method.l2.v1', { value: hy.all.summary.totalValueAedYi })}</li>
+        <li>${t('method.l2.v2', { list: hy.meta.excludedProjects.join(isEn() ? ', ' : '、') })}</li>
+        <li>${t('method.l2.v3', { count: hy.meta.investmentZoneDistricts })}</li>
+        <li>${t('method.l2.v4', { all: hy.all.summary.totalTransactions, iz: hy.investmentZone.summary.totalTransactions, pct: hy.compare.izShareOfTransactionsPct })}</li>
+        <li>${t('method.l2.v5')}</li>
       </ul>
-      <h4>附录 · 滚动 12 个月（${rolling.meta.periodStart} — ${rolling.meta.periodEnd}）</h4>
-      <ul><li>更长区间趋势参考，与近半年、年报均勿直接相加减</li></ul>
+      <h4>${t('method.l3.title', { start: rolling.meta.periodStart, end: rolling.meta.periodEnd })}</h4>
+      <ul><li>${t('method.l3.v1')}</li></ul>
     `;
   }
 
@@ -642,7 +689,7 @@
 
   function showError(err) {
     const el = document.getElementById('load-error');
-    if (el) { el.hidden = false; el.textContent = `数据加载失败：${err.message}。请通过 HTTP 访问，勿用 file:// 打开。`; }
+    if (el) { el.hidden = false; el.textContent = t('error.load', { msg: err.message }); }
   }
 
   async function init() {
@@ -650,7 +697,7 @@
       destroyCharts();
       const { annual, halfyear, rolling } = await loadData();
       if (!halfyear?.all || !halfyear?.investmentZone) {
-        throw new Error('halfyear.json 格式异常：缺少 all / investmentZone，请运行 node tools/analyze_recent_sales.mjs 重新生成');
+        throw new Error(t('error.halfyearInvalid'));
       }
       halfyearRef = halfyear;
       priceMode = 'all';
@@ -668,6 +715,7 @@
       renderRollingAppendix(rolling);
       setupMethodology(annual, halfyear, rolling);
       setupPriceFilter();
+      updatePriceCharts(priceMode);
       setupNav();
       setupCollapsibles();
       document.getElementById('app')?.classList.remove('loading');
@@ -676,6 +724,10 @@
       showError(err);
     }
   }
+
+  window.addEventListener('site-lang-change', () => {
+    if (halfyearRef) init();
+  });
 
   init();
 })();

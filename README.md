@@ -73,7 +73,7 @@ abu-market-report/
 
 - [买房成本计算器](https://SobhaZanYan.github.io/uae-buy-cost-calculator/)
 - 区域地图页（规划中）
-- Hub 首页（规划中）
+- Hub 首页：https://SobhaZanYan.github.io/zanyan-hub/
 
 ## 免责声明
 

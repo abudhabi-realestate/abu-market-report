@@ -61,6 +61,24 @@
       display: flex; align-items: center; gap: .65rem;
       margin-left: auto; font-size: .84rem;
     }
+    .lang-switch {
+      display: inline-flex;
+      border: 1px solid rgba(232, 213, 163, .35);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .lang-btn {
+      border: none;
+      background: transparent;
+      color: #e8d5a3;
+      padding: 3px 9px;
+      font-size: .72rem;
+      cursor: pointer;
+    }
+    .lang-btn.active {
+      background: rgba(232, 213, 163, .18);
+      color: #fff;
+    }
     .site-team { font-weight: 600; letter-spacing: .02em; }
     .site-phone {
       color: #e8d5a3; text-decoration: none; font-variant-numeric: tabular-nums;
@@ -354,8 +372,10 @@
       .crossref-head { display: none; }
       .crossref-row { grid-template-columns: 1fr; gap: 4px; padding: 14px 0; }
       .crossref-label { color: var(--primary); }
-      .crossref-annual::before { content: '年报：'; font-weight: 600; }
-      .crossref-half::before { content: '近半年：'; font-weight: 600; }
+      html[lang="zh-CN"] .crossref-annual::before { content: '年报：'; font-weight: 600; }
+      html[lang="zh-CN"] .crossref-half::before { content: '近半年：'; font-weight: 600; }
+      html[lang="en"] .crossref-annual::before { content: 'Annual: '; font-weight: 600; }
+      html[lang="en"] .crossref-half::before { content: 'Recent: '; font-weight: 600; }
     }
 
     .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
@@ -392,46 +412,50 @@
     }
   </style>
 </head>
-<body>
+<body data-i18n-title="meta.title">
 
 <div class="site-brand-bar">
   <div class="site-brand-inner">
     <img src="Logo.png" alt="Logo" class="site-logo" />
     <div class="site-brand-meta">
-      <span class="site-team">昝颜团队</span>
+      <div class="lang-switch" role="group" aria-label="Language switcher">
+        <button type="button" class="lang-btn" data-lang="zh" data-i18n="lang.zh">中文</button>
+        <button type="button" class="lang-btn" data-lang="en" data-i18n="lang.en">EN</button>
+      </div>
+      <span class="site-team" data-i18n="brand.team">昝颜团队</span>
       <a href="tel:+971565473192" class="site-phone">0565473192</a>
     </div>
   </div>
 </div>
 
 <header class="top-nav">
-  <a class="top-nav-brand" href="#">阿布<span>数据</span>报告</a>
+  <a class="top-nav-brand" href="#"><span data-i18n="nav.brand.prefix">阿布</span><span data-i18n="nav.brand.highlight">数据</span><span data-i18n="nav.brand.suffix">报告</span></a>
   <nav class="section-nav" id="section-nav" aria-label="章节导航">
     <div class="nav-group">
-      <span class="nav-group-label">报告</span>
-      <a href="#macro">宏观</a>
-      <a href="#supply">供需</a>
-      <a href="#buyers">买家</a>
-      <a href="#observations">观察</a>
+      <span class="nav-group-label" data-i18n="nav.group.report">报告</span>
+      <a href="#macro" data-i18n="nav.macro">宏观</a>
+      <a href="#supply" data-i18n="nav.supply">供需</a>
+      <a href="#buyers" data-i18n="nav.buyers">买家</a>
+      <a href="#observations" data-i18n="nav.observations">观察</a>
     </div>
     <span class="nav-sep" aria-hidden="true"></span>
     <div class="nav-group">
-      <span class="nav-group-label">数据</span>
-      <a href="#crossref">对照</a>
-      <a href="#volume">成交量</a>
-      <a href="#structure">结构</a>
-      <a href="#price">均价</a>
-      <a href="#regions">区域</a>
-      <a href="#investment-zone">投资区</a>
+      <span class="nav-group-label" data-i18n="nav.group.data">数据</span>
+      <a href="#crossref" data-i18n="nav.crossref">对照</a>
+      <a href="#volume" data-i18n="nav.volume">成交量</a>
+      <a href="#structure" data-i18n="nav.structure">结构</a>
+      <a href="#price" data-i18n="nav.price">均价</a>
+      <a href="#regions" data-i18n="nav.regions">区域</a>
+      <a href="#investment-zone" data-i18n="nav.iz">投资区</a>
     </div>
   </nav>
   <div class="nav-links">
-    <a href="https://sobhazanyan.github.io/uae-buy-cost-calculator/" target="_blank" rel="noopener">计算器</a>
+    <a href="https://sobhazanyan.github.io/uae-buy-cost-calculator/" target="_blank" rel="noopener" data-i18n="nav.calculator">计算器</a>
   </div>
 </header>
 
 <div class="sticky-summary" id="sticky-summary" aria-live="polite">
-  <span>加载中…</span>
+  <span data-i18n="sticky.loading">加载中…</span>
 </div>
 
 <div class="page stack" id="app">
@@ -441,14 +465,14 @@
   <!-- Hero -->
   <div class="stack gap-12">
     <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center">
-      <h1>阿布扎比住宅市场数据报告</h1>
-      <span class="pill pill-gold">30天看懂阿布房产 · 数据版</span>
+      <h1 data-i18n="hero.title">阿布扎比住宅市场数据报告</h1>
+      <span class="pill pill-gold" data-i18n="hero.pill">30天看懂阿布房产 · 数据版</span>
     </div>
-    <p class="hero-meta">
+    <p class="hero-meta" data-i18n-html="hero.meta">
       上半部分：<strong>ADREC 2025 年报解读</strong>（宏观、供需、买家）。下半部分：<strong>近半年成交数据</strong>（2025.10—2026.04，含投资区筛选）。
       更新：<span id="data-updated">—</span> · 不构成投资建议
     </p>
-    <div class="callout">
+    <div class="callout" data-i18n-html="hero.callout">
       先读报告建立框架，再看近半年数据验证趋势。<strong>年报为 2025 全年，近半年为 7 个月成交记录，宜对照结构不宜对绝对值相加减。</strong>
     </div>
   </div>
@@ -456,15 +480,15 @@
   <!-- ═══ 上半部分：市场报告 ═══ -->
   <div id="part-report" class="part-banner">
     <div class="part-num">PART 1</div>
-    <h2>ADREC 2025 市场报告</h2>
-    <p>基于官方年报的宏观解读——谁在买、供应有多紧、外国人能参与多大的盘子。</p>
+    <h2 data-i18n="part1.title">ADREC 2025 市场报告</h2>
+    <p data-i18n="part1.desc">基于官方年报的宏观解读——谁在买、供应有多紧、外国人能参与多大的盘子。</p>
   </div>
 
   <section id="macro" class="stack gap-16">
     <div>
-      <span class="layer-tag">ADREC 2025 年报</span>
-      <h2>宏观 KPI</h2>
-      <p class="source-line">来源：<span id="annual-source">—</span></p>
+      <span class="layer-tag" data-i18n="macro.layer">ADREC 2025 年报</span>
+      <h2 data-i18n="macro.title">宏观 KPI</h2>
+      <p class="source-line"><span data-i18n="macro.source">来源：</span><span id="annual-source">—</span></p>
     </div>
     <div class="kpi-grid" id="macro-kpis"></div>
   </section>
@@ -472,26 +496,26 @@
   <!-- Supply -->
   <section id="supply" class="stack gap-16">
     <div>
-      <span class="layer-tag">人口 · 供应 · 可买盘子</span>
-      <h2>为什么「人多」不等于「随便挑」</h2>
+      <span class="layer-tag" data-i18n="supply.layer">人口 · 供应 · 可买盘子</span>
+      <h2 data-i18n="supply.title">为什么「人多」不等于「随便挑」</h2>
     </div>
     <div class="grid-2">
       <div class="card">
-        <div class="card-header">需求 vs 供应增速</div>
+        <div class="card-header" data-i18n="supply.card1.title">需求 vs 供应增速</div>
         <div class="card-body">
           <div id="supply-bars"></div>
-          <p class="card-note">入住单元增速持续快于新增供应——结构性缺口多年累积，非单月热点。</p>
+          <p class="card-note" data-i18n="supply.card1.note">入住单元增速持续快于新增供应——结构性缺口多年累积，非单月热点。</p>
         </div>
       </div>
       <div class="card">
-        <div class="card-header">三层市场结构（示意）</div>
+        <div class="card-header" data-i18n="supply.card2.title">三层市场结构（示意）</div>
         <div class="card-body stack gap-12">
           <div style="display:flex;flex-direction:column;gap:8px;align-items:center;padding:12px 0">
-            <div style="width:100%;max-width:280px;height:36px;background:#e8ede9;border-radius:999px;display:flex;align-items:center;justify-content:center;font-size:.78rem;color:var(--muted)">酋长国 · 约 420 万人口</div>
-            <div style="width:78%;max-width:220px;height:36px;background:var(--primary-light);border-radius:999px;display:flex;align-items:center;justify-content:center;font-size:.78rem;color:#fff">首都圈 · 78% 住宅存量</div>
-            <div style="width:48%;max-width:140px;height:36px;background:var(--accent);border-radius:999px;display:flex;align-items:center;justify-content:center;font-size:.78rem;color:#fff;font-weight:600">永久产权区 · 21%</div>
+            <div style="width:100%;max-width:280px;height:36px;background:#e8ede9;border-radius:999px;display:flex;align-items:center;justify-content:center;font-size:.78rem;color:var(--muted)" data-i18n="supply.ring.emirate">酋长国 · 约 420 万人口</div>
+            <div style="width:78%;max-width:220px;height:36px;background:var(--primary-light);border-radius:999px;display:flex;align-items:center;justify-content:center;font-size:.78rem;color:#fff" data-i18n="supply.ring.capital">首都圈 · 78% 住宅存量</div>
+            <div style="width:48%;max-width:140px;height:36px;background:var(--accent);border-radius:999px;display:flex;align-items:center;justify-content:center;font-size:.78rem;color:#fff;font-weight:600" data-i18n="supply.ring.iz">永久产权区 · 21%</div>
           </div>
-          <p class="card-note">外国人可购买的永久产权投资区约占全市住宅存量 21%（约 6.7 万套）——能参与的供应池，比总人口数字窄得多。</p>
+          <p class="card-note" data-i18n="supply.card2.note">外国人可购买的永久产权投资区约占全市住宅存量 21%（约 6.7 万套）——能参与的供应池，比总人口数字窄得多。</p>
         </div>
       </div>
     </div>
@@ -500,24 +524,24 @@
   <!-- Buyers -->
   <section id="buyers" class="stack gap-16">
     <div>
-      <span class="layer-tag">买家结构 · ADREC 2025</span>
-      <h2>谁在买？三类买家 + 十年变化</h2>
+      <span class="layer-tag" data-i18n="buyers.layer">买家结构 · ADREC 2025</span>
+      <h2 data-i18n="buyers.title">谁在买？三类买家 + 十年变化</h2>
     </div>
     <div class="grid-2">
       <div class="card">
-        <div class="card-header">2025 买家结构（按成交额）</div>
+        <div class="card-header" data-i18n="buyers.card1.title">2025 买家结构（按成交额）</div>
         <div class="card-body">
           <div class="pie-container" style="width:200px"><canvas id="buyerPie"></canvas></div>
-          <p class="card-note">居留外籍 51% 为绝对主力；海外投资 11% 高度集中在萨迪亚特、亚斯岛等顶奢板块。</p>
+          <p class="card-note" data-i18n="buyers.card1.note">居留外籍 51% 为绝对主力；海外投资 11% 高度集中在萨迪亚特、亚斯岛等顶奢板块。</p>
         </div>
       </div>
       <div class="card">
-        <div class="card-header">2019 → 2025 结构变化</div>
+        <div class="card-header" data-i18n="buyers.card2.title">2019 → 2025 结构变化</div>
         <div class="card-body">
           <div class="chart-wrap" style="height:220px">
             <canvas id="buyerTrend"></canvas>
           </div>
-          <p class="card-note">2022—2025 增量约 69% 来自外籍购买——外籍已从边缘走向主流。</p>
+          <p class="card-note" data-i18n="buyers.card2.note">2022—2025 增量约 69% 来自外籍购买——外籍已从边缘走向主流。</p>
         </div>
       </div>
     </div>
@@ -525,28 +549,28 @@
 
   <!-- Observations -->
   <section id="observations" class="stack gap-16">
-    <h2>六个数据观察</h2>
+    <h2 data-i18n="obs.title">六个数据观察</h2>
     <div class="obs-grid" id="observations-grid"></div>
   </section>
 
   <!-- ═══ 下半部分：近半年数据 ═══ -->
   <div id="part-data" class="part-banner data-part">
     <div class="part-num">PART 2</div>
-    <h2>近半年成交数据</h2>
-    <p>2025年10月 — 2026年4月 · 已排除 Private / Al Deem Towerhome / Bal Ghaiylam · 含全部成交与投资区筛选</p>
+    <h2 data-i18n="part2.title">近半年成交数据</h2>
+    <p data-i18n="part2.desc">2025年10月 — 2026年4月 · 已排除 Private / Al Deem Towerhome / Bal Ghaiylam · 含全部成交与投资区筛选</p>
   </div>
 
   <!-- ADREC vs Half year bridge -->
   <section id="crossref" class="stack gap-16">
     <div>
-      <span class="layer-tag">报告 ↔ 数据 对照</span>
-      <h2>年报指标 vs 近半年成交</h2>
+      <span class="layer-tag" data-i18n="cross.layer">报告 ↔ 数据 对照</span>
+      <h2 data-i18n="cross.title">年报指标 vs 近半年成交</h2>
       <p class="source-line" id="crossref-note">—</p>
     </div>
     <div class="card">
       <div class="card-body" style="padding-top:18px">
         <div class="crossref-head">
-          <div>指标</div><div>ADREC 2025 年报</div><div>近半年成交</div><div>说明</div>
+          <div data-i18n="card.cross.indicator">指标</div><div data-i18n="card.cross.annual">ADREC 2025 年报</div><div data-i18n="card.cross.half">近半年成交</div><div data-i18n="card.cross.note">说明</div>
         </div>
         <div id="crossref-grid"></div>
       </div>
@@ -556,21 +580,21 @@
   <!-- Half year volume -->
   <section id="volume" class="stack gap-16">
     <div>
-      <span class="layer-tag">成交概览</span>
-      <h2>成交量走势</h2>
-      <p class="source-line">区间：<span id="halfyear-period">—</span> · 来源：<span id="halfyear-source">—</span> · 已排除：<span id="excluded-projects">—</span></p>
+      <span class="layer-tag" data-i18n="volume.layer">成交概览</span>
+      <h2 data-i18n="volume.title">成交量走势</h2>
+      <p class="source-line"><span data-i18n="volume.source">区间：</span><span id="halfyear-period">—</span><span data-i18n="volume.source.mid"> · 来源：</span><span id="halfyear-source">—</span><span data-i18n="volume.source.excluded"> · 已排除：</span><span id="excluded-projects">—</span></p>
     </div>
     <div class="kpi-grid" id="halfyear-kpis" style="grid-template-columns:repeat(3,1fr)"></div>
     <div class="card">
       <div class="card-header">
-        <span>月度成交量 · 全部（已排除三类项目）</span>
-        <span class="pill pill-green">堆叠柱图</span>
+        <span data-i18n="volume.card.title">月度成交量 · 全部（已排除三类项目）</span>
+        <span class="pill pill-green" data-i18n="volume.card.pill">堆叠柱图</span>
       </div>
       <div class="card-body">
         <div class="chart-wrap" style="height:280px">
           <canvas id="barChart"></canvas>
         </div>
-        <p class="card-note" id="volume-note">2026 年 4 月合计 3,034 套为区间峰值（公寓 2,485 + 别墅 549）；2025 年 10 月别墅 979 套为别墅单月高点。</p>
+        <p class="card-note" id="volume-note" data-i18n="volume.note">2026 年 4 月合计 3,034 套为区间峰值（公寓 2,485 + 别墅 549）；2025 年 10 月别墅 979 套为别墅单月高点。</p>
       </div>
     </div>
   </section>
@@ -578,29 +602,29 @@
   <!-- Structure -->
   <section id="structure" class="stack gap-16">
     <div>
-      <span class="layer-tag">市场结构</span>
-      <h2>物业类型 · 期房 · 一级/二级</h2>
+      <span class="layer-tag" data-i18n="structure.layer">市场结构</span>
+      <h2 data-i18n="structure.title">物业类型 · 期房 · 一级/二级</h2>
     </div>
     <div class="grid-3">
       <div class="card">
-        <div class="card-header">物业类型 · 全部</div>
+        <div class="card-header" data-i18n="structure.card1.title">物业类型 · 全部</div>
         <div class="card-body">
           <div class="pie-container"><canvas id="pieType"></canvas></div>
-          <p class="card-note">公寓为成交主体；别墅/联排含胡代里亚特等大盘。</p>
+          <p class="card-note" data-i18n="structure.card1.note">公寓为成交主体；别墅/联排含胡代里亚特等大盘。</p>
         </div>
       </div>
       <div class="card">
-        <div class="card-header">期房 vs 现房 · 全部</div>
+        <div class="card-header" data-i18n="structure.card2.title">期房 vs 现房 · 全部</div>
         <div class="card-body">
           <div class="pie-container"><canvas id="pieOffplan"></canvas></div>
-          <p class="card-note">近半年期房占比高于 ADREC 全年 71%——新盘推盘集中所致。</p>
+          <p class="card-note" data-i18n="structure.card2.note">近半年期房占比高于 ADREC 全年 71%——新盘推盘集中所致。</p>
         </div>
       </div>
       <div class="card">
-        <div class="card-header">一级 vs 二级 · 全部</div>
+        <div class="card-header" data-i18n="structure.card3.title">一级 vs 二级 · 全部</div>
         <div class="card-body">
           <div class="pie-container"><canvas id="piePrimary"></canvas></div>
-          <p class="card-note">一级市场（开发商首售）占主导，与年报「期房 + 现金占位」叙事一致。</p>
+          <p class="card-note" data-i18n="structure.card3.note">一级市场（开发商首售）占主导，与年报「期房 + 现金占位」叙事一致。</p>
         </div>
       </div>
     </div>
@@ -609,23 +633,23 @@
   <!-- Price -->
   <section id="price" class="stack gap-16">
     <div>
-      <span class="layer-tag">均价走势</span>
-      <h2>月度均价（AED/m² · 全部成交）</h2>
+      <span class="layer-tag" data-i18n="price.layer">均价走势</span>
+      <h2 data-i18n="price.title">月度均价（AED/m² · 全部成交）</h2>
     </div>
     <div class="card">
       <div class="card-header">
-        <span>月度均价 + 线性趋势</span>
+        <span data-i18n="price.card.title">月度均价 + 线性趋势</span>
         <div class="price-filter" id="price-filter" role="group" aria-label="一手二手筛选">
-          <button type="button" class="price-filter-btn active" data-mode="all" title="全部成交">全部</button>
-          <button type="button" class="price-filter-btn" data-mode="primary" title="一级市场 primary">一手</button>
-          <button type="button" class="price-filter-btn" data-mode="secondary" title="二级市场 secondary">二手</button>
+          <button type="button" class="price-filter-btn active" data-mode="all" data-i18n="price.filter.all" data-i18n-title="price.filter.all.title" title="全部成交">全部</button>
+          <button type="button" class="price-filter-btn" data-mode="primary" data-i18n="price.filter.primary" data-i18n-title="price.filter.primary.title" title="一级市场 primary">一手</button>
+          <button type="button" class="price-filter-btn" data-mode="secondary" data-i18n="price.filter.secondary" data-i18n-title="price.filter.secondary.title" title="二级市场 secondary">二手</button>
         </div>
       </div>
       <div class="card-body">
         <div class="chart-wrap" style="height:240px">
           <canvas id="lineChart"></canvas>
         </div>
-        <p class="card-note" id="price-note">公寓近半年 +15%；3 月峰值 25.8K 后 4 月回落。别墅区间基本持平。</p>
+        <p class="card-note" id="price-note" data-i18n="note.price.main.all">公寓近半年 +15%；3 月峰值 25.8K 后 4 月回落。别墅区间基本持平。</p>
       </div>
     </div>
   </section>
@@ -633,32 +657,32 @@
   <!-- Regions -->
   <section id="regions" class="stack gap-16">
     <div>
-      <span class="layer-tag">区域分布</span>
-      <h2>公寓 / 别墅热区 · 全部成交</h2>
+      <span class="layer-tag" data-i18n="regions.layer">区域分布</span>
+      <h2 data-i18n="regions.title">公寓 / 别墅热区 · 全部成交</h2>
     </div>
     <div class="grid-2">
       <div class="card">
         <div class="card-header">
-          <span>公寓核心热区</span>
-          <span class="card-header-trail">里姆 + 亚斯 + 萨迪亚特 ≈ 70%</span>
+          <span data-i18n="regions.apt.title">公寓核心热区</span>
+          <span class="card-header-trail" data-i18n="regions.apt.trail">里姆 + 亚斯 + 萨迪亚特 ≈ 70%</span>
         </div>
         <div class="card-body">
           <div class="chart-wrap" style="height:260px">
             <canvas id="barApt"></canvas>
           </div>
-          <p class="card-note">里姆岛居首；法希德岛进入前五——新兴岛份额抬升。</p>
+          <p class="card-note" data-i18n="regions.apt.note">里姆岛居首；法希德岛进入前五——新兴岛份额抬升。</p>
         </div>
       </div>
       <div class="card">
         <div class="card-header">
-          <span>别墅/联排核心热区</span>
-          <span class="card-header-trail">胡代里亚特占别墅约 34.5%</span>
+          <span data-i18n="regions.villa.title">别墅/联排核心热区</span>
+          <span class="card-header-trail" data-i18n="regions.villa.trail">胡代里亚特占别墅约 34.5%</span>
         </div>
         <div class="card-body">
           <div class="chart-wrap" style="height:280px">
             <canvas id="barVilla"></canvas>
           </div>
-          <p class="card-note">胡代里亚特遥遥领先；Ghantout、扎耶德城次之。</p>
+          <p class="card-note" data-i18n="regions.villa.note">胡代里亚特遥遥领先；Ghantout、扎耶德城次之。</p>
         </div>
       </div>
     </div>
@@ -667,16 +691,16 @@
   <!-- Investment Zone -->
   <section id="investment-zone" class="stack gap-16">
     <div>
-      <span class="layer-tag">投资区筛选</span>
-      <h2>仅永久产权投资区（Freehold）</h2>
+      <span class="layer-tag" data-i18n="iz.layer">投资区筛选</span>
+      <h2 data-i18n="iz.title">仅永久产权投资区（Freehold）</h2>
       <p class="source-line" id="iz-period-note">—</p>
     </div>
     <div class="grid-2">
       <div class="card">
-        <div class="card-header">投资区 vs 非投资区（近半年）</div>
+        <div class="card-header" data-i18n="iz.card.share.title">投资区 vs 非投资区（近半年）</div>
         <div class="card-body">
           <div class="pie-container" style="width:200px;margin:0 auto"><canvas id="pieIzShare"></canvas></div>
-          <p class="card-note">绝大多数近半年成交发生在投资区 District 内；下方列出非投资区主要板块。</p>
+          <p class="card-note" data-i18n="iz.card.share.note">绝大多数近半年成交发生在投资区 District 内；下方列出非投资区主要板块。</p>
           <ul class="card-note" id="non-iz-districts" style="margin-top:10px;padding-left:1.2rem"></ul>
         </div>
       </div>
@@ -684,8 +708,8 @@
     </div>
     <div class="card">
       <div class="card-header">
-        <span>投资区 · 月度成交量</span>
-        <span class="pill pill-gold">仅 Investment Zones</span>
+        <span data-i18n="iz.card.volume.title">投资区 · 月度成交量</span>
+        <span class="pill pill-gold" data-i18n="iz.card.volume.pill">仅 Investment Zones</span>
       </div>
       <div class="card-body">
         <div class="chart-wrap" style="height:260px"><canvas id="barChartIz"></canvas></div>
@@ -693,41 +717,41 @@
     </div>
     <div class="grid-3">
       <div class="card">
-        <div class="card-header">投资区 · 物业类型</div>
+        <div class="card-header" data-i18n="iz.card.type.title">投资区 · 物业类型</div>
         <div class="card-body"><div class="pie-container"><canvas id="pieTypeIz"></canvas></div></div>
       </div>
       <div class="card">
-        <div class="card-header">投资区 · 期房 vs 现房</div>
+        <div class="card-header" data-i18n="iz.card.offplan.title">投资区 · 期房 vs 现房</div>
         <div class="card-body"><div class="pie-container"><canvas id="pieOffplanIz"></canvas></div></div>
       </div>
       <div class="card">
-        <div class="card-header">投资区 · 一级 vs 二级</div>
+        <div class="card-header" data-i18n="iz.card.primary.title">投资区 · 一级 vs 二级</div>
         <div class="card-body"><div class="pie-container"><canvas id="piePrimaryIz"></canvas></div></div>
       </div>
     </div>
     <div class="card">
       <div class="card-header">
-        <span>投资区 · 均价走势（AED/m²）</span>
+        <span data-i18n="iz.card.price.title">投资区 · 均价走势（AED/m²）</span>
         <div class="price-filter" id="price-filter-iz" role="group" aria-label="投资区一手二手筛选">
-          <button type="button" class="price-filter-btn active" data-mode="all" title="全部成交">全部</button>
-          <button type="button" class="price-filter-btn" data-mode="primary" title="一级市场 primary">一手</button>
-          <button type="button" class="price-filter-btn" data-mode="secondary" title="二级市场 secondary">二手</button>
+          <button type="button" class="price-filter-btn active" data-mode="all" data-i18n="price.filter.all" data-i18n-title="price.filter.all.title" title="全部成交">全部</button>
+          <button type="button" class="price-filter-btn" data-mode="primary" data-i18n="price.filter.primary" data-i18n-title="price.filter.primary.title" title="一级市场 primary">一手</button>
+          <button type="button" class="price-filter-btn" data-mode="secondary" data-i18n="price.filter.secondary" data-i18n-title="price.filter.secondary.title" title="二级市场 secondary">二手</button>
         </div>
       </div>
       <div class="card-body">
         <div class="chart-wrap" style="height:240px"><canvas id="lineChartIz"></canvas></div>
-        <p class="card-note" id="price-note-iz">投资区公寓近半年 +15%；3 月峰值 25.8K 后 4 月回落。购前须 DARI 核验单元产权类型。</p>
+        <p class="card-note" id="price-note-iz" data-i18n="note.price.iz.all">投资区公寓近半年 +15%；3 月峰值 25.8K 后 4 月回落。购前须 DARI 核验单元产权类型。</p>
       </div>
     </div>
     <div class="grid-2">
       <div class="card">
-        <div class="card-header">投资区 · 公寓热区</div>
+        <div class="card-header" data-i18n="iz.card.apt.title">投资区 · 公寓热区</div>
         <div class="card-body">
           <div class="chart-wrap" style="height:260px"><canvas id="barAptIz"></canvas></div>
         </div>
       </div>
       <div class="card">
-        <div class="card-header">投资区 · 别墅/联排热区</div>
+        <div class="card-header" data-i18n="iz.card.villa.title">投资区 · 别墅/联排热区</div>
         <div class="card-body">
           <div class="chart-wrap" style="height:280px"><canvas id="barVillaIz"></canvas></div>
         </div>
@@ -738,32 +762,32 @@
   <!-- 数据附录 -->
   <div>
     <button type="button" class="method-toggle" id="rolling-toggle" data-collapse aria-expanded="false" aria-controls="rolling-panel">
-      附录：滚动 12 个月数据（2025.05—2026.04，点击展开）
+      <span data-i18n="appendix.toggle">附录：滚动 12 个月数据（2025.05—2026.04，点击展开）</span>
       <span aria-hidden="true">▼</span>
     </button>
     <div id="rolling-panel" class="method-panel" hidden>
-      <div id="rolling-appendix-body">加载中…</div>
+      <div id="rolling-appendix-body" data-i18n="appendix.loading">加载中…</div>
     </div>
   </div>
 
   <!-- Methodology -->
   <div>
     <button type="button" class="method-toggle" id="methodology-toggle" data-collapse aria-expanded="false" aria-controls="methodology-panel">
-      统计口径说明（点击展开）
+      <span data-i18n="method.toggle">统计口径说明（点击展开）</span>
       <span aria-hidden="true">▼</span>
     </button>
     <div id="methodology-panel" class="method-panel" hidden>
-      <div id="methodology-body">加载中…</div>
+      <div id="methodology-body" data-i18n="method.loading">加载中…</div>
     </div>
   </div>
 
   <!-- Footer -->
   <footer class="footer">
     <div class="footer-cta">
-      <a class="secondary" href="#part-report">报告</a>
-      <a class="secondary" href="#part-data">数据</a>
+      <a class="secondary" href="#part-report" data-i18n="footer.report">报告</a>
+      <a class="secondary" href="#part-data" data-i18n="footer.data">数据</a>
     </div>
-    <p>
+    <p data-i18n-html="footer.body">
       数据来源：Abu Dhabi Real Estate Centre（ADREC）· 近半年成交已排除 Private / Al Deem Towerhome / Bal Ghaiylam；投资区按 District 匹配 ADREC 名录（17 个板块）。<br>
       均价基于全量交易计算，已排除 Private / Al Deem Towerhome / Bal Ghaiylam 三类项目；仅统计 apartment 与 villa。<br>
       <strong>以上内容基于公开市场数据与个人实操观察整理，不构成投资建议。</strong>政策、税费、贷款条件请以当地最新法规及专业人士意见为准。外国人购房仅限永久产权投资区。<br>
@@ -773,6 +797,8 @@
 
 </div>
 
+<script src="scripts/site-i18n-core.js"></script>
+<script src="scripts/i18n.js"></script>
 <script data-base="." src="scripts/render.js"></script>
 </body>
 </html>
