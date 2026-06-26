@@ -1,0 +1,474 @@
+{
+  "meta": {
+    "source": "Abu Dhabi Real Estate Centre 住宅成交记录",
+    "periodStart": "2025-10-01",
+    "periodEnd": "2026-04-30",
+    "periodLabel": "2025年10月 — 2026年4月（近半年）",
+    "updated": "2026-06-26",
+    "excludedProjects": [
+      "Private",
+      "Al Deem Towerhome",
+      "Bal Ghaiylam"
+    ],
+    "propertyTypes": [
+      "apartment",
+      "villa",
+      "townhouse / attached villa"
+    ],
+    "csvFile": "recent_sales (3).csv",
+    "investmentZoneDistricts": 17,
+    "note": "已排除 Private / Al Deem Towerhome / Bal Ghaiylam 三类项目；投资区按 District 字段匹配 ADREC 名录。"
+  },
+  "all": {
+    "label": "首都圈成交（已排除三类项目）",
+    "summary": {
+      "totalTransactions": 17048,
+      "totalValueAedYi": 670.4,
+      "peakMonth": "2026-04",
+      "peakMonthTotal": 3034,
+      "apartmentSharePct": 74.5,
+      "villaSharePct": 25.5,
+      "offPlanSharePct": 80.5,
+      "offPlanAptPct": 78.4,
+      "offPlanVillaPct": 86.8,
+      "readySharePct": 19.5,
+      "aptPriceChangePct": 15,
+      "villaPriceChangePct": 1,
+      "aptPriceStart": 19794,
+      "aptPriceEnd": 22784,
+      "villaPriceStart": 17671,
+      "villaPriceEnd": 17819,
+      "primarySharePct": 76.9,
+      "secondarySharePct": 23.1
+    },
+    "months": {
+      "labels": [
+        "10月'25",
+        "11月'25",
+        "12月'25",
+        "1月'26",
+        "2月'26",
+        "3月'26",
+        "4月'26"
+      ],
+      "apartmentVolume": [
+        1661,
+        1393,
+        1489,
+        1911,
+        1883,
+        1881,
+        2485
+      ],
+      "villaVolume": [
+        979,
+        524,
+        601,
+        545,
+        712,
+        435,
+        549
+      ],
+      "apartmentPriceSqmK": [
+        19.8,
+        20,
+        20.1,
+        22.1,
+        23.9,
+        25.8,
+        22.8
+      ],
+      "villaPriceSqmK": [
+        17.7,
+        16.9,
+        16,
+        19.7,
+        19.1,
+        17,
+        17.8
+      ],
+      "primary": {
+        "apartmentPriceSqmK": [
+          20.9,
+          21.9,
+          21.4,
+          23.5,
+          25.6,
+          28.4,
+          23.7
+        ],
+        "villaPriceSqmK": [
+          17.9,
+          17.3,
+          15.9,
+          20.3,
+          19.6,
+          17.6,
+          18.5
+        ]
+      },
+      "secondary": {
+        "apartmentPriceSqmK": [
+          15.7,
+          15.4,
+          16.2,
+          16.1,
+          16.7,
+          18.9,
+          19.9
+        ],
+        "villaPriceSqmK": [
+          15.7,
+          15.5,
+          16.1,
+          17.6,
+          16.4,
+          16.1,
+          16.7
+        ]
+      }
+    },
+    "structure": {
+      "typeSplit": {
+        "labels": [
+          "公寓 74.5%",
+          "别墅/联排 25.5%"
+        ],
+        "data": [
+          12703,
+          4345
+        ]
+      },
+      "offPlanAll": {
+        "labels": [
+          "期房 80.5%",
+          "现房 19.5%"
+        ],
+        "data": [
+          13731,
+          3317
+        ]
+      },
+      "saleSequence": {
+        "labels": [
+          "一级市场",
+          "二级市场"
+        ],
+        "data": [
+          13113,
+          3933
+        ]
+      }
+    },
+    "regions": {
+      "apartment": {
+        "labels": [
+          "Al Reem Island",
+          "Yas Island",
+          "Al Saadiyat Island",
+          "Khalifa City",
+          "Fahid Island",
+          "Al Rahah"
+        ],
+        "data": [
+          4822,
+          2819,
+          1257,
+          684,
+          664,
+          572
+        ],
+        "highlight": [
+          0,
+          1,
+          2
+        ],
+        "topThreeSharePct": 70
+      },
+      "villa": {
+        "labels": [
+          "Al Hidayriyyat",
+          "Ghantout",
+          "Zayed City",
+          "Al Bahyah",
+          "Yas Island",
+          "Khalifa City"
+        ],
+        "data": [
+          1501,
+          617,
+          545,
+          430,
+          211,
+          166
+        ]
+      }
+    },
+    "highlights": {
+      "aptPeakMonth": {
+        "month": "2026-04",
+        "volume": 2485
+      },
+      "villaPeakMonth": {
+        "month": "2025-10",
+        "volume": 979
+      },
+      "aptPricePeak": {
+        "month": "2026-03",
+        "priceSqmK": 25.8
+      },
+      "villaPricePeak": {
+        "month": "2026-01",
+        "priceSqmK": 19.7
+      }
+    }
+  },
+  "investmentZone": {
+    "label": "永久产权投资区",
+    "summary": {
+      "totalTransactions": 15947,
+      "totalValueAedYi": 638.8,
+      "peakMonth": "2026-04",
+      "peakMonthTotal": 2862,
+      "apartmentSharePct": 76.8,
+      "villaSharePct": 23.2,
+      "offPlanSharePct": 80.3,
+      "offPlanAptPct": 77.9,
+      "offPlanVillaPct": 88.4,
+      "readySharePct": 19.7,
+      "aptPriceChangePct": 15,
+      "villaPriceChangePct": 2,
+      "aptPriceStart": 20142,
+      "aptPriceEnd": 23208,
+      "villaPriceStart": 17837,
+      "villaPriceEnd": 18197,
+      "primarySharePct": 77,
+      "secondarySharePct": 23
+    },
+    "months": {
+      "labels": [
+        "10月'25",
+        "11月'25",
+        "12月'25",
+        "1月'26",
+        "2月'26",
+        "3月'26",
+        "4月'26"
+      ],
+      "apartmentVolume": [
+        1572,
+        1346,
+        1435,
+        1876,
+        1837,
+        1824,
+        2356
+      ],
+      "villaVolume": [
+        942,
+        331,
+        404,
+        459,
+        670,
+        389,
+        506
+      ],
+      "apartmentPriceSqmK": [
+        20.1,
+        20.3,
+        20.3,
+        22.2,
+        24.1,
+        26.1,
+        23.2
+      ],
+      "villaPriceSqmK": [
+        17.8,
+        19,
+        17.4,
+        21.1,
+        19.3,
+        17.6,
+        18.2
+      ],
+      "primary": {
+        "apartmentPriceSqmK": [
+          21.4,
+          22.4,
+          21.7,
+          23.7,
+          25.8,
+          28.4,
+          24
+        ],
+        "villaPriceSqmK": [
+          18.1,
+          20.6,
+          17.7,
+          21.8,
+          19.9,
+          18.3,
+          19
+        ]
+      },
+      "secondary": {
+        "apartmentPriceSqmK": [
+          15.7,
+          15.5,
+          16.2,
+          16.2,
+          16.8,
+          19.3,
+          20.6
+        ],
+        "villaPriceSqmK": [
+          15.9,
+          15.2,
+          16.4,
+          18.2,
+          16.2,
+          16.4,
+          17
+        ]
+      }
+    },
+    "structure": {
+      "typeSplit": {
+        "labels": [
+          "公寓 76.8%",
+          "别墅/联排 23.2%"
+        ],
+        "data": [
+          12246,
+          3701
+        ]
+      },
+      "offPlanAll": {
+        "labels": [
+          "期房 80.3%",
+          "现房 19.7%"
+        ],
+        "data": [
+          12806,
+          3141
+        ]
+      },
+      "saleSequence": {
+        "labels": [
+          "一级市场",
+          "二级市场"
+        ],
+        "data": [
+          12277,
+          3668
+        ]
+      }
+    },
+    "regions": {
+      "apartment": {
+        "labels": [
+          "Al Reem Island",
+          "Yas Island",
+          "Al Saadiyat Island",
+          "Khalifa City",
+          "Fahid Island",
+          "Al Rahah"
+        ],
+        "data": [
+          4822,
+          2819,
+          1257,
+          684,
+          664,
+          572
+        ],
+        "highlight": [
+          0,
+          1,
+          2
+        ],
+        "topThreeSharePct": 72.7
+      },
+      "villa": {
+        "labels": [
+          "Al Hidayriyyat",
+          "Ghantout",
+          "Zayed City",
+          "Yas Island",
+          "Khalifa City",
+          "Al Saadiyat Island"
+        ],
+        "data": [
+          1501,
+          617,
+          545,
+          211,
+          166,
+          164
+        ]
+      }
+    },
+    "highlights": {
+      "aptPeakMonth": {
+        "month": "2026-04",
+        "volume": 2356
+      },
+      "villaPeakMonth": {
+        "month": "2025-10",
+        "volume": 942
+      },
+      "aptPricePeak": {
+        "month": "2026-03",
+        "priceSqmK": 26.1
+      },
+      "villaPricePeak": {
+        "month": "2026-01",
+        "priceSqmK": 21.1
+      }
+    }
+  },
+  "investmentZoneMeta": {
+    "source": "ADREC 永久产权投资区名录 + Executive Council 决议",
+    "updated": "2026-06-26",
+    "note": "CSV 按 District 字段匹配；Khalifa City / Zayed City 等大陆社区仅 designated 子区域为投资区，此处按 ADREC 报告常用板块口径整区计入，实际购前须 DARI 核验单元产权。",
+    "csvField": "District"
+  },
+  "compare": {
+    "izShareOfTransactionsPct": 93.5,
+    "izShareOfValuePct": 95.3,
+    "nonIzTransactions": 1101,
+    "topNonIzDistricts": [
+      {
+        "district": "Al Bahyah",
+        "count": 430
+      },
+      {
+        "district": "Al Shamkhah",
+        "count": 427
+      },
+      {
+        "district": "Bani Yas",
+        "count": 94
+      },
+      {
+        "district": "Al Samhah",
+        "count": 54
+      },
+      {
+        "district": "Rabdan",
+        "count": 38
+      }
+    ]
+  },
+  "adrecCrossRef": {
+    "annualOffPlanPct2025": 71,
+    "halfYearOffPlanPctAll": 80.5,
+    "halfYearOffPlanPctIz": 80.3,
+    "annualCashPct2025": 87,
+    "annualTransactionValueAedYi": 761,
+    "halfYearValueAllAedYi": 670.4,
+    "halfYearValueIzAedYi": 638.8,
+    "stockShareInvestmentZonePct": 21,
+    "note": "投资区成交占近半年总量约七成——与 ADREC「投资区存量约占 21%」不矛盾：小盘子里交易更活跃；购前须 DARI 核验单元产权。"
+  }
+}

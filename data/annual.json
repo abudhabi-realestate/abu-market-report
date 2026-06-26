@@ -1,0 +1,83 @@
+{
+  "meta": {
+    "source": "ADREC《2025 Abu Dhabi Real Estate Market Report》",
+    "year": 2025,
+    "updated": "2026-06-26",
+    "note": "宏观年度数据；与 rolling12 微观成交统计口径不同，页内已分别标注。"
+  },
+  "kpi": {
+    "transactionValueAedYi": 761,
+    "transactionValueYoY": 67,
+    "offPlanSharePct": 71,
+    "cashSharePct": 87,
+    "populationEmirateMn": 4.2,
+    "populationVsDubaiPct": 20,
+    "capitalRegionStockSharePct": 78,
+    "investmentZoneStockSharePct": 21,
+    "investmentZoneUnitsApprox": 67000,
+    "occupiedGrowthPct": 6.6,
+    "supplyGrowthPct": 2.8
+  },
+  "buyers": {
+    "labels": ["居留外籍", "本国买家", "非居留外籍（海外投资）"],
+    "sharePct2025": [51, 38, 11],
+    "valueAedYi2025": [389, 289, 82],
+    "sharePct2019": [34, 63, 5],
+    "incrementForeignShare2022_2025": 69,
+    "fdiTop10NationalitySharePct": 60,
+    "residentTop10NationalitySharePct": 65
+  },
+  "regions": {
+    "topBlocks": [
+      { "name": "Al Saadiyat Island", "fdiSharePct": 25, "note": "全市 FDI 浓度最高板块之一" },
+      { "name": "Yas Island", "fdiSharePct": 16, "note": "文旅 + 生活方式" },
+      { "name": "Al Reem Island", "residentSharePct": 75, "note": "金融区 + 白领长住" },
+      { "name": "Al Raha", "residentSharePct": 84, "note": "全市最高居留外籍占比之一" }
+    ],
+    "saadiyatYasFdiSharePct": 59
+  },
+  "observations": [
+    {
+      "icon": "📊",
+      "title": "期房是默认选项，不是例外",
+      "data": "ADREC 2025 全年 71% 为期房、87% 全现金；近半年（2025.10—2026.04）成交记录中期房占 80.5%，一级市场占 76.9%。",
+      "meaning": "新盘集中入市推高了近半年期房比例——市场仍以「开发商首售 + 现金占位」为主，而非二手短炒。",
+      "caveat": "近半年期房占比高于全年均值，不代表「越来越泡沫」——反映的是供应结构，需匹配交付周期评估。"
+    },
+    {
+      "icon": "🌍",
+      "title": "买家结构：居留外籍主导",
+      "data": "2025 按成交额：居留外籍 51%、本国 38%、海外投资 11%；较 2019 年外籍占比显著上升。",
+      "meaning": "增长主要由已在阿联酋工作生活的外籍人士驱动，不是纯海外短线资金。",
+      "caveat": "海外投资虽仅 11%，但高度集中在萨迪亚特、亚斯岛等顶奢文旅板块。"
+    },
+    {
+      "icon": "🏝️",
+      "title": "三岛仍是公寓主战场",
+      "data": "近半年公寓成交：里姆岛 4,822 套、亚斯岛 2,819 套、萨迪亚特 1,257 套，三岛合计约 70%；法希德岛等新盘进入前五。",
+      "meaning": "核心三岛集中度略低于 ADREC 全年 72%，但仍是绝对主战场；新兴岛份额在抬升。",
+      "caveat": "70% 是成交集中度，不等于「只有三岛值得看」；哈立德城、法希德岛等有长持/新区逻辑。"
+    },
+    {
+      "icon": "📈",
+      "title": "近半年量价：公寓涨、别墅稳",
+      "data": "2025年10月—2026年4月：成交 17,048 套、成交额约 670 亿 AED；公寓均价 +15%（19,794→22,784 AED/m²），别墅基本持平；4月公寓 2,485 套创区间峰值。",
+      "meaning": "需求动能集中在公寓与新盘；别墅近半年均价波动大但区间涨幅有限，与胡代里亚特等大盘放量结构有关。",
+      "caveat": "3月公寓均价 25.8K 为区间高点，4月回落至 22.8K——单月均价波动大，勿用作单一决策依据。"
+    },
+    {
+      "icon": "⚖️",
+      "title": "需求快于供应：结构性缺口",
+      "data": "入住单元增速 6.6%，新增供应增速 2.8%；永久产权投资区约占存量 21%（约 6.7 万套）。",
+      "meaning": "420 万人口撑需求，但外国人可参与的永久产权盘子天然更窄——「人多」≠「随便挑」。",
+      "caveat": "2026—2030 增量供应将放量，但 68% 集中在五个区域，时间错配仍可能存在。"
+    },
+    {
+      "icon": "🏗️",
+      "title": "别墅热点：胡代里亚特 + 新兴社区",
+      "data": "近半年别墅/联排：胡代里亚特 1,501 套居首，占别墅成交 34.5%；Ghantout 617 套、Zayed City 545 套次之。",
+      "meaning": "与 ADREC 年报一致——本国买家与长持家庭更倾向大陆/新兴别墅社区；与三岛公寓逻辑不同。",
+      "caveat": "Ghantout 等远期板块流动性与配套兑现节奏需单独评估，不适合用三岛公寓标准套用。"
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "meta": {
+    "source": "Abu Dhabi Real Estate Centre 住宅成交记录",
+    "periodStart": "2025-05-01",
+    "periodEnd": "2026-04-30",
+    "updated": "2026-06-26",
+    "excluded": ["Private", "Al Deem Towerhome", "Bal Ghaiylam"],
+    "propertyTypes": ["apartment", "villa"],
+    "note": "滚动 12 个月微观成交统计；均价基于全量交易计算。"
+  },
+  "summary": {
+    "totalTransactions": 27302,
+    "peakMonth": "2026-04",
+    "peakMonthTotal": 3037,
+    "offPlanSharePct": 77,
+    "offPlanAptPct": 76.7,
+    "offPlanVillaPct": 82.4,
+    "aptPriceChangePct": 38,
+    "villaPriceChangePct": 53,
+    "aptPriceStart": 16626,
+    "aptPriceEnd": 22899,
+    "villaPriceStart": 11865,
+    "villaPriceEnd": 18111
+  },
+  "months": {
+    "labels": ["5月'25", "6月'25", "7月'25", "8月'25", "9月'25", "10月'25", "11月'25", "12月'25", "1月'26", "2月'26", "3月'26", "4月'26"],
+    "apartmentVolume": [936, 947, 1509, 1615, 1965, 1664, 1398, 1498, 1920, 1894, 1895, 2500],
+    "villaVolume": [236, 426, 354, 349, 305, 694, 494, 542, 465, 809, 456, 537],
+    "apartmentPriceSqmK": [16.6, 18.5, 18.6, 24.2, 20.9, 19.8, 19.9, 20.2, 22.4, 24.0, 26.1, 22.9],
+    "villaPriceSqmK": [11.9, 9.7, 9.2, 13.7, 12.9, 16.2, 17.4, 14.8, 21.4, 19.2, 17.6, 18.1]
+  },
+  "structure": {
+    "typeSplit": {
+      "labels": ["公寓 77.8%", "别墅 22.2%"],
+      "data": [20322, 5808]
+    },
+    "offPlanApt": {
+      "labels": ["期房 76.7%", "现房 23.3%"],
+      "data": [15584, 4738]
+    }
+  },
+  "regions": {
+    "apartment": {
+      "labels": ["Al Reem Island", "Yas Island", "Al Saadiyat Island", "Al Hidayriyyat", "其他区域"],
+      "data": [7426, 4523, 2121, 709, 5543],
+      "highlight": [0, 1, 2],
+      "topThreeSharePct": 72
+    },
+    "villa": {
+      "labels": ["Al Hidayriyyat", "Al Bahyah", "Zayed City", "Al Shamkhah", "Yas Island", "Al Jubail Island", "其他区域"],
+      "data": [1661, 1310, 282, 225, 220, 207, 1903]
+    }
+  },
+  "highlights": {
+    "aptPeakMonth": { "month": "2026-04", "volume": 2500, "note": "较年初增长约 30%" },
+    "villaPeakMonth": { "month": "2026-02", "volume": 809, "note": "年内别墅成交峰值" },
+    "aptPricePeak": { "month": "2026-03", "priceSqm": 26113 },
+    "villaPricePeak": { "month": "2026-01", "priceSqm": 21359 }
+  }
+}

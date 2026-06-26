@@ -1,0 +1,46 @@
+{
+  "meta": {
+    "source": "ADREC 永久产权投资区名录 + Executive Council 决议",
+    "updated": "2026-06-26",
+    "note": "CSV 按 District 字段匹配；Khalifa City / Zayed City 等大陆社区仅 designated 子区域为投资区，此处按 ADREC 报告常用板块口径整区计入，实际购前须 DARI 核验单元产权。",
+    "csvField": "District"
+  },
+  "districts": [
+    "Al Reem Island",
+    "Yas Island",
+    "Al Saadiyat Island",
+    "Al Maryah Island",
+    "Al Rahah",
+    "Al Hidayriyyat",
+    "Al Jubail Island",
+    "Fahid Island",
+    "Ramhan Island",
+    "Khalifa City",
+    "Zayed City",
+    "Masdar City",
+    "Al Reef",
+    "Al Layyan",
+    "Ghadeer Al Tayr",
+    "Ghantout",
+    "Nourai Island"
+  ],
+  "labelsZh": {
+    "Al Reem Island": "里姆岛",
+    "Yas Island": "亚斯岛",
+    "Al Saadiyat Island": "萨迪亚特岛",
+    "Al Maryah Island": "玛丽亚岛",
+    "Al Rahah": "阿尔拉哈",
+    "Al Hidayriyyat": "胡代里亚特岛",
+    "Al Jubail Island": "朱拜勒岛",
+    "Fahid Island": "法希德岛",
+    "Ramhan Island": "拉姆汉岛",
+    "Khalifa City": "哈立德城",
+    "Zayed City": "扎耶德城",
+    "Masdar City": "马斯达尔城",
+    "Al Reef": "Al Reef",
+    "Al Layyan": "Al Layyan",
+    "Ghadeer Al Tayr": "Ghadeer Al Tayr",
+    "Ghantout": "Ghantout",
+    "Nourai Island": "努莱岛"
+  }
+}
