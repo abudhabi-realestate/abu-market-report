@@ -27,6 +27,7 @@
       --border: #e2e8e4;
       --shadow: 0 1px 4px rgba(13, 79, 60, 0.07);
       --nav-h: 52px;
+      --brand-bar-h: 46px;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -38,12 +39,37 @@
       background: var(--bg);
       color: var(--text);
       line-height: 1.6;
-      padding-top: calc(var(--nav-h) + 40px);
+      padding-top: calc(var(--brand-bar-h) + var(--nav-h) + 40px);
     }
+
+    /* ── Brand bar（与计算器 / 选校 / 护照校验一致）── */
+    .site-brand-bar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 400;
+      height: var(--brand-bar-h);
+      background: #0a0a0a;
+      color: #e8d5a3;
+      padding: 0 1.25rem;
+      border-bottom: 1px solid rgba(232, 213, 163, .12);
+      display: flex; align-items: center;
+    }
+    .site-brand-inner {
+      max-width: 1100px; width: 100%; margin: 0 auto;
+      display: flex; align-items: center; gap: .75rem; flex-wrap: wrap;
+    }
+    .site-logo { height: 30px; width: auto; display: block; }
+    .site-brand-meta {
+      display: flex; align-items: center; gap: .65rem;
+      margin-left: auto; font-size: .84rem;
+    }
+    .site-team { font-weight: 600; letter-spacing: .02em; }
+    .site-phone {
+      color: #e8d5a3; text-decoration: none; font-variant-numeric: tabular-nums;
+    }
+    .site-phone:hover { color: #fff; text-decoration: underline; }
 
     /* ── Top nav ── */
     .top-nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 300;
+      position: fixed; top: var(--brand-bar-h); left: 0; right: 0; z-index: 300;
       height: var(--nav-h);
       background: var(--primary);
       color: #fff;
@@ -79,7 +105,7 @@
 
     /* ── Sticky summary ── */
     .sticky-summary {
-      position: fixed; top: var(--nav-h); left: 0; right: 0; z-index: 250;
+      position: fixed; top: calc(var(--brand-bar-h) + var(--nav-h)); left: 0; right: 0; z-index: 250;
       background: var(--accent-soft);
       border-bottom: 1px solid #e8dcc0;
       display: flex; justify-content: center; gap: 20px;
@@ -367,6 +393,16 @@
   </style>
 </head>
 <body>
+
+<div class="site-brand-bar">
+  <div class="site-brand-inner">
+    <img src="Logo.png" alt="Logo" class="site-logo" />
+    <div class="site-brand-meta">
+      <span class="site-team">昝颜团队</span>
+      <a href="tel:+971565473192" class="site-phone">0565473192</a>
+    </div>
+  </div>
+</div>
 
 <header class="top-nav">
   <a class="top-nav-brand" href="#">阿布<span>数据</span>报告</a>
@@ -727,13 +763,13 @@
       <a href="https://sobhazanyan.github.io/uae-buy-cost-calculator/" target="_blank" rel="noopener">买房成本计算器</a>
       <a class="secondary" href="#part-report">报告</a>
       <a class="secondary" href="#part-data">数据</a>
-      <a class="gold" href="https://github.com/Nothing9802/abu-market-report" target="_blank" rel="noopener">GitHub 源码</a>
+      <a class="gold" href="https://github.com/SobhaZanYan/abu-market-report" target="_blank" rel="noopener">GitHub 源码</a>
     </div>
     <p>
       数据来源：Abu Dhabi Real Estate Centre（ADREC）· 近半年成交已排除 Private / Al Deem Towerhome / Bal Ghaiylam；投资区按 District 匹配 ADREC 名录（17 个板块）。<br>
       均价基于全量交易计算，已排除 Private / Al Deem Towerhome / Bal Ghaiylam 三类项目；仅统计 apartment 与 villa。<br>
       <strong>以上内容基于公开市场数据与个人实操观察整理，不构成投资建议。</strong>政策、税费、贷款条件请以当地最新法规及专业人士意见为准。外国人购房仅限永久产权投资区。<br>
-      小红书咨询请备注：预算 + 目的 + 时间线 · 数据有疑问欢迎评论区交流
+      咨询联系：昝颜团队 · <a href="tel:+971565473192" style="color:inherit">0565473192</a> · 小红书请备注：预算 + 目的 + 时间线
     </p>
   </footer>
 
