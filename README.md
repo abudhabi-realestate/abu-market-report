@@ -2,7 +2,7 @@
 
 ADREC 双层数据交互报告：**2025 年报宏观 KPI** + **滚动 12 个月成交趋势**。配套「30天看懂阿布房产」小红书系列。
 
-**在线访问（部署后）：** https://Nothing9802.github.io/abu-market-report/
+**在线访问：** https://SobhaZanYan.github.io/abu-market-report/
 
 ## 功能
 
