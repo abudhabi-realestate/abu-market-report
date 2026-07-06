@@ -2,7 +2,7 @@
 
 ADREC 双层数据交互报告：**2025 年报宏观 KPI** + **滚动 12 个月成交趋势**。配套「30天看懂阿布房产」小红书系列。
 
-**在线访问：** https://SobhaZanYan.github.io/abu-market-report/
+**在线访问：** https://abudhabi-realestate.github.io/abu-market-report/
 
 ## 功能
 
@@ -50,7 +50,7 @@ node tools/analyze_recent_sales.mjs
 或使用工作区根目录脚本：
 
 ```powershell
-.\setup-github.ps1 push
+..\_scripts\setup-github.ps1 push
 ```
 
 ## 目录结构
@@ -71,9 +71,9 @@ abu-market-report/
 
 ## 关联工具
 
-- [买房成本计算器](https://SobhaZanYan.github.io/uae-buy-cost-calculator/)
+- [买房成本计算器](https://abudhabi-realestate.github.io/uae-buy-cost-calculator/)
 - 区域地图页（规划中）
-- Hub 首页：https://sobhazanyan.github.io/william-xing-hub/
+- Hub 首页：https://abudhabi-realestate.github.io/william-xing-hub/
 
 ## 免责声明
 
