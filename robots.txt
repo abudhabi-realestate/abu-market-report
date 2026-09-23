@@ -15,3 +15,5 @@ Allow: /
 
 User-agent: *
 Allow: /
+
+Sitemap: https://abudhabi-realestate.github.io/abu-market-report/sitemap.xml
